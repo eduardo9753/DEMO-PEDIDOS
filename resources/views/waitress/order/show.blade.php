@@ -47,11 +47,13 @@
                         <div class="row">
 
                             <div class="d-flex justify-content-between mb-3">
-                                <form action="{{ route('waitress.table.update') }}" id="form-print-waitress" method="POST">
+                                {{-- FORM DE PRECUENTA --}}
+                                <form action="{{ route('cashier.table.update') }}"
+                                    id="form-print-cashier-{{ $order->id }}" method="POST">
                                     @csrf
                                     <input type="text" name="table_id" value="{{ $order->table_id }}" hidden>
                                     <input type="text" name="order_id" id="order_id" value="{{ $order->id }}" hidden>
-                                    <button type="submit" class="btn btn-info">
+                                    <button type="submit" class="btn btn-info btn-sm">
                                         PRECUENTA
                                     </button>
                                 </form>
