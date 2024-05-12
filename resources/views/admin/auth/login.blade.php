@@ -18,7 +18,7 @@
                                     <img src="{{ asset('img/logo.png') }}" class="img-fluid login-logo"
                                         alt="Bootstrap Gallery" />
                                 </a>
-                                <h2 class="mt-4 mb-4">Ágape Chicken & Grill</h2>
+                                <h2 class="mt-4 mb-4">{{ env('NOMBRE_EMPRESA') }}</h2>
                                 @if (session('mensaje'))
                                     <div class="alert alert-warning alert-dismissible fade show" role="alert">
                                         <strong>Mensaje!</strong> {{ session('mensaje') }}.
