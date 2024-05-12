@@ -47,7 +47,7 @@ class Dishes extends Component
     {
         $this->validate([
             'name' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric',
             'category_id' => 'required', 
             'type_id' => 'required',
             'photo' => 'required|url',
