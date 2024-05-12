@@ -87,7 +87,15 @@ $(function () {
                             location.reload();
                         });
                     } else {
-                        location.reload();
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'warning',
+                            title: 'NO TIENE ORDEN, LIBERANDO MESA',
+                            showConfirmButton: false,
+                            timer: 2500
+                        }).then(function () {
+                            location.reload();
+                        });
                     }
                 }
             });
