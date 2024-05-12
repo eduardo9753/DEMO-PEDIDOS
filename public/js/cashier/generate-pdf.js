@@ -86,11 +86,11 @@ $(function () {
                         }).then(function () {
                             location.reload();
                         });
-                    } else {
+                    } else if (data.code == 4) {
                         Swal.fire({
                             position: 'top-end',
                             icon: 'warning',
-                            title: 'NO TIENE ORDEN, LIBERANDO MESA',
+                            title: data.msg,
                             showConfirmButton: false,
                             timer: 2500
                         }).then(function () {

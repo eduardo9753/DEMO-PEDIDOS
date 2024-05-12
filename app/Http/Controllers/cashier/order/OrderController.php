@@ -213,38 +213,46 @@ class OrderController extends Controller
     {
         //validamos si la orden ya ha sido cobrada y liberamos la mes
         $order = Order::find($request->order_id);
-        if ($order->state == 'OCULTO' || $order->state == 'COBRADO') {
-            $update = Table::find($request->table_id);
-            $save = $update->update(['state' => 'ACTIVO']);
 
-            if ($save) {
-                return response()->json([
-                    'code' => 2,
-                    'msg' => 'ORDEN YA COBRADA, LIBERANDO MESA'
-                ]);
-            }
-        } else if ($order->state == 'PEDIDO') {
-            //validamos si la mesa esta libre , eso quiere decir que la mesa se ha cambiado
-            $libre = Table::find($request->table_id);
-            if ($libre->state == 'ACTIVO') {
-                return response()->json([
-                    'code' => 3,
-                    'msg' => 'MESA MOVIDA, LIBERANDO MESA'
-                ]);
-            } else {
-                // de  lo contrario activamos precuenta
+        if (!$order) {
+            return response()->json([
+                'code' => 4,
+                'msg' => 'ORDER NO ENCONTRADA , LIBERANDO MESA'
+            ]);
+        } else {
+            if ($order->state == 'OCULTO' || $order->state == 'COBRADO') {
                 $update = Table::find($request->table_id);
-                $save = $update->update(['state' => 'PRECUENTA']);
+                $save = $update->update(['state' => 'ACTIVO']);
+
                 if ($save) {
                     return response()->json([
-                        'code' => 1,
-                        'msg' => 'MESA CON PRECUENTA ACTIVADA'
+                        'code' => 2,
+                        'msg' => 'ORDEN YA COBRADA, LIBERANDO MESA'
+                    ]);
+                }
+            } else if ($order->state == 'PEDIDO') {
+                //validamos si la mesa esta libre , eso quiere decir que la mesa se ha cambiado
+                $libre = Table::find($request->table_id);
+                if ($libre->state == 'ACTIVO') {
+                    return response()->json([
+                        'code' => 3,
+                        'msg' => 'MESA MOVIDA, LIBERANDO MESA'
                     ]);
                 } else {
-                    return response()->json([
-                        'code' => 0,
-                        'msg' => 'MESA SIN ACTUALIZAR'
-                    ]);
+                    // de  lo contrario activamos precuenta
+                    $update = Table::find($request->table_id);
+                    $save = $update->update(['state' => 'PRECUENTA']);
+                    if ($save) {
+                        return response()->json([
+                            'code' => 1,
+                            'msg' => 'MESA CON PRECUENTA ACTIVADA'
+                        ]);
+                    } else {
+                        return response()->json([
+                            'code' => 0,
+                            'msg' => 'MESA SIN ACTUALIZAR'
+                        ]);
+                    }
                 }
             }
         }
