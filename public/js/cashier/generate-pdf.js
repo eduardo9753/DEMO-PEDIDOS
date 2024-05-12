@@ -86,6 +86,8 @@ $(function () {
                         }).then(function () {
                             location.reload();
                         });
+                    } else {
+                        location.reload();
                     }
                 }
             });
