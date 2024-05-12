@@ -99,12 +99,12 @@
             <img src="{{ asset('img/logo.png') }}" alt="Logo de la empresa" style="max-width: 100%;">
         </div>
         <div class="header">
-            <h1>Reporte de Ventas - Agape</h1>
+            <h1>Reporte de Ventas - {{ env('NOMBRE_EMPRESA') }}</h1>
         </div>
         <div class="address">
-            <p><strong>Razon Social:</strong> Agape Chicken & Grill</p>
-            <p><strong>Direccion: </strong> parque sinchi roc, Av. Universitaria 9311, Comas 15316</p>
-            <p><strong>RUC: </strong> 20523287568 </p>
+            <p><strong>Razon Social:</strong> {{ env('NOMBRE_EMPRESA') }}</p>
+            <p><strong>Direccion: </strong> {{ env('DIRECCION_EMPRESA') }}</p>
+            <p><strong>RUC: </strong> {{ env('RUC') }} </p>
         </div>
         <div class="info">
             <p><strong>Generado por:</strong> {{ auth()->user()->name }}</p>
@@ -151,7 +151,7 @@
             <p><strong>Total Pagado:</strong> S/.{{ $totalAmount }}</p>
         </div>
         <div class="footer">
-            <p>--- Para Tacuchi ---</strong></p>
+            <p>--- Para {{ env('NOMBRE_EMPRESA') }} ---</strong></p>
         </div>
     </div>
 </body>

@@ -37,7 +37,7 @@ $(function () {
 
                         // Construir la URL del PDF
                         //const urlPdf = `https://agapechicken.com/generar-pdf/${orderId}`;
-                        const urlPdf = `http://127.0.0.1:8000/generar-pdf/${orderId}`;
+                        const urlPdf = `https://demo.preunicursos.com/generar-pdf/${orderId}`;
 
                         // Crear un nuevo objeto de tipo iframe
                         var iframe = document.createElement('iframe');
@@ -105,7 +105,7 @@ $(function () {
 
             // Construir la URL del PDF
             //const urlPdf = `https://agapechicken.com/generar-pdf/comanda/${orderId}`;
-            const urlPdf = `http://127.0.0.1:8000/generar-pdf/comanda/${orderId}`;
+            const urlPdf = `https://demo.preunicursos.com/generar-pdf/comanda/${orderId}`;
 
             // Crear un nuevo objeto de tipo iframe
             var iframe = document.createElement('iframe');

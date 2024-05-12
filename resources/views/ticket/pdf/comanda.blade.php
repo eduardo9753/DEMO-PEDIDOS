@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boleta de Venta</title>
+    <title>COMANDA</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -78,13 +78,13 @@
 <body>
     <div class="container">
         <div class="logo">
-            <!-- Establecer el ancho máximo del logo 
+            <!-- Establecer el ancho máximo del logo
             <img src="{{ asset('img/logo.png') }}" alt="Logo de la empresa" style="max-width: 100%;">-->
         </div>
 
         <div class="header">
             <p>------------------------------------------------</p>
-            <p>AGAPE CHICKEN & GRILL</p>
+            <p>{{ env('NOMBRE_EMPRESA') }}</p>
             <p>------------------------------------------------</p>
             <p>MOZO: {{ $order->user->name }}</p>
             <p>------------------------------------------------</p>
@@ -129,7 +129,7 @@
         <div class="footer">
             <p>GRACIAS POR SU COMPRA</p>
             <p>------------------------------------------------</p>
-            <p>parque sinchi roca, Av. Universitaria 9311, Comas 15316</p>
+            <p>{{ env('DIRECCION_EMPRESA')}}</p>
             <p>------------------------------------------------</p>
         </div>
     </div>

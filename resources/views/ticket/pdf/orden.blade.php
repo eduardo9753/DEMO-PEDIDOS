@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boleta de Venta</title>
+    <title>PRECUENTA</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -84,9 +84,9 @@
 
         <div class="header">
             <p>....................................................</p>
-            <p>AGAPE CHICKEN & GRILL</p>
+            <p>{{ env('NOMBRE_EMPRESA') }}</p>
             <p>....................................................</p>
-            <p>TELEF: 2727548-912338157</p>
+            <p>{{ env('TELEFONOS') }}</p>
             <p>....................................................</p>
             <p>{{ $order->table->name }}</p>
             <p>MOZO: {{ $order->user->name }}</p>
@@ -127,7 +127,7 @@
         <div class="footer">
             <p>GRACIAS POR SU COMPRA</p>
             <p>------------------------------------------------</p>
-            <p>parque sinchi roca, Av. Universitaria 9311, Comas 15316</p>
+            <p>{{ env('DIRECCION_EMPRESA') }}</p>
             <p>------------------------------------------------</p>
         </div>
     </div>
