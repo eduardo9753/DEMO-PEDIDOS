@@ -17,7 +17,7 @@
                     <div class="form-group my-2">
                         <label for="">Precio:</label>
                         <input wire:model="price" type="text" class="form-control" placeholder="60.00">
-                        @error('name')
+                        @error('price')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -86,7 +86,7 @@
                     <div class="form-group my-2">
                         <label for="">Precio:</label>
                         <input wire:model="price" type="text" class="form-control" placeholder="60.00">
-                        @error('name')
+                        @error('price')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
