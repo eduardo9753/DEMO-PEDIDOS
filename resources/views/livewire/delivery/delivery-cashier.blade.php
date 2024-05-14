@@ -76,8 +76,7 @@
                                 <option value="" class="text-bg-dark">Seleccionar producto</option>
                                 @if ($products->count() > 0)
                                     @foreach ($products as $product)
-                                        <option value="{{ $product->id }}" class="text-bg-dark">{{ $product->name }} -
-                                            {{ $product->price }}
+                                        <option value="{{ $product->id }}" class="text-bg-dark">{{ $product->name }} - S/.{{ $product->price }}
                                         </option>
                                     @endforeach
                                 @else
