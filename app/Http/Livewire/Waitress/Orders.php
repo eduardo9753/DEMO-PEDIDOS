@@ -115,7 +115,7 @@ class Orders extends Component
         $this->product_id = null;
 
         // direccionamos a las mesas
-        session()->flash('message', 'Pedido creado exitosamente.');
+        session()->flash('message', 'producto añadido a la mesa.');
     }
 
 

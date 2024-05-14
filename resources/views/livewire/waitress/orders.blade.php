@@ -175,7 +175,7 @@
 
             @if ($orderDetails->isNotEmpty())
                 <div class="text-end">
-                    <button class="btn btn-success ms-1" wire:click="order()">Generar pedidos</button>
+                    <button class="btn btn-success ms-1" wire:click="order()">Generar Orden</button>
                 </div>
             @endif
 
@@ -183,7 +183,7 @@
             @if ($orderDetails->isNotEmpty())
                 <div class="text-end">
                     <button class="btn btn-danger ms-1" wire:click="cancel()">Anular
-                        pedidos</button>
+                        Orden</button>
                 </div>
             @endif
 
