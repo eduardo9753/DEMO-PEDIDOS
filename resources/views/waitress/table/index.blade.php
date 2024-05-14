@@ -76,24 +76,33 @@
                                                 @php
                                                     $order = $table->orders->last(); // Obtener la última orden asociada a la mesa
                                                 @endphp
-                                                <a href="{{ route('waitress.order.show', ['order' => $order]) }}"
-                                                    class="btn btn-danger btn-sm">
-                                                    OCUPADO
-                                                </a>
+                                                @if ($order)
+                                                    <a href="{{ route('waitress.order.show', ['order' => $order]) }}"
+                                                        class="btn btn-danger btn-sm">
+                                                        OCUPADO
+                                                    </a>
+                                                @else
+                                                    <button class="btn btn-danger btn-sm" disabled>OCUPADO</button>
+                                                @endif
                                             @else
                                                 @php
                                                     $order = $table->orders->last(); // Obtener la última orden asociada a la mesa
                                                 @endphp
-                                                <a href="{{ route('waitress.order.show', ['order' => $order]) }}"
-                                                    class="btn btn-info btn-sm">
-                                                    CON {{ $table->state }}
-                                                </a>
+                                                @if ($order)
+                                                    <a href="{{ route('waitress.order.show', ['order' => $order]) }}"
+                                                        class="btn btn-info btn-sm">
+                                                        CON {{ $table->state }}
+                                                    </a>
+                                                @else
+                                                    <button class="btn btn-info btn-sm" disabled>CON
+                                                        {{ $table->state }}</button>
+                                                @endif
                                             @endif
                                         </div>
-
                                     </div>
                                 </div>
                             @endforeach
+
 
 
                             {{-- <div class="col-sm-12" id="allTablesWaitress"></div> --}}
