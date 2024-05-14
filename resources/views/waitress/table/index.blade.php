@@ -69,15 +69,17 @@
                                         <div class="ms-2">
                                             <h3 class="m-0 fw-semibold">{{ $table->name }}</h3>
                                             @if ($table->state == 'ACTIVO')
-                                                <a href="{{ route('waitress.order.index', ['table' => $table]) }}">
+                                                <a href="{{ route('waitress.order.index', ['table' => $table->id]) }}">
                                                     <button class="btn btn-primary btn-sm">LIBRE</button>
                                                 </a>
                                             @elseif ($table->state == 'INACTIVO')
                                                 @php
-                                                    $order = $table->orders->last(); // Obtener la última orden asociada a la mesa
+                                                    $order = $table->orders
+                                                        ->where('user_id', auth()->user()->id)
+                                                        ->last(); // Filtrar y obtener la última orden
                                                 @endphp
                                                 @if ($order)
-                                                    <a href="{{ route('waitress.order.show', ['order' => $order]) }}"
+                                                    <a href="{{ route('waitress.order.show', ['order' => $order->id]) }}"
                                                         class="btn btn-danger btn-sm">
                                                         OCUPADO
                                                     </a>
@@ -86,10 +88,12 @@
                                                 @endif
                                             @else
                                                 @php
-                                                    $order = $table->orders->last(); // Obtener la última orden asociada a la mesa
+                                                    $order = $table->orders
+                                                        ->where('user_id', auth()->user()->id)
+                                                        ->last(); // Filtrar y obtener la última orden
                                                 @endphp
                                                 @if ($order)
-                                                    <a href="{{ route('waitress.order.show', ['order' => $order]) }}"
+                                                    <a href="{{ route('waitress.order.show', ['order' => $order->id]) }}"
                                                         class="btn btn-info btn-sm">
                                                         CON {{ $table->state }}
                                                     </a>
@@ -102,7 +106,6 @@
                                     </div>
                                 </div>
                             @endforeach
-
 
 
                             {{-- <div class="col-sm-12" id="allTablesWaitress"></div> --}}
