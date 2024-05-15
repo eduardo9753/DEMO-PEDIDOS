@@ -50,24 +50,29 @@ class OrderController extends Controller
     //para poder modificar el pedido del cliente "agregar mas platos"
     public function show(Order $order)
     {
-        //si orden de la mesa esta cobrada la liberamos y volvemos a la lista de mesas
+       //si no se encuentra la orden es por se ha movido de mesa o se ha elimnado el pédido y vamos a la lista de mesas
         $order = Order::find($order->id);
-        if ($order->state == 'OCULTO' || $order->state == 'COBRADO') {
-            $update = Table::find($order->table_id);
-            $save = $update->update(['state' => 'ACTIVO']);
-
-            if ($save) {
-                return redirect()->route('waitress.table.index');
-            }
+        if (!$order) {
+            return redirect()->route('waitress.table.index');
         } else {
-            //de lo contrario vemos la lista de pedidos
-            $table = Table::find($order->table_id);
-            $tables = Table::where('state', 'ACTIVO')->get();
-            return view('waitress.order.show', [
-                'order' => $order,
-                'table' => $table,
-                'tables' => $tables
-            ]);
+             //si orden de la mesa esta cobrada la liberamos y volvemos a la lista de mesas
+            if ($order->state == 'OCULTO' || $order->state == 'COBRADO') {
+                $update = Table::find($order->table_id);
+                $save = $update->update(['state' => 'ACTIVO']);
+
+                if ($save) {
+                    return redirect()->route('waitress.table.index');
+                }
+            } else {
+                //de lo contrario vemos la lista de pedidos
+                $table = Table::find($order->table_id);
+                $tables = Table::where('state', 'ACTIVO')->get();
+                return view('waitress.order.show', [
+                    'order' => $order,
+                    'table' => $table,
+                    'tables' => $tables
+                ]);
+            }
         }
     }
 
