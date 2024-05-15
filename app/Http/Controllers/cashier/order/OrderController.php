@@ -72,11 +72,7 @@ class OrderController extends Controller
         $totalToPay = $totalAmount + $igv;
 
         //para guardar la moneda del cliente
-        if (isset($request->soles)) {
-            $dineroCliente = $request->soles;
-        } else if (isset($request->dolares)) {
-            $dineroCliente = "$/." . $request->dolares;
-        } else if (isset($request->tarjeta)) {
+        if (isset($request->tarjeta)) {
             $dineroCliente = $request->tarjeta;
         } else {
             $dineroCliente = 'dinero no ingreso';
@@ -125,8 +121,8 @@ class OrderController extends Controller
             for ($i = 0; $i < count($request->payment_method); $i++) {
                 // Crear la transacción para cada pago múltiple
                 $payment = Transaction::create([
-                    'amount' => $totalAmount / count($request->payment_method), // Monto total individual para este cliente
-                    'income_tax' => $igv / count($request->payment_method), // Impuesto individual para este cliente
+                    'amount' => $request->pago_multiple[$i], // Monto pagado por este cliente
+                    'income_tax' => $igv * $request->pago_multiple[$i] / $totalAmount, // Proporción del impuesto para este monto
                     'cash_payment' => $request->pago_multiple[$i], // Monto pagado por este cliente
                     'payment_method' => $request->payment_method[$i], // Método de pago para este cliente
                     'type_receipt' => 'BOLETA', // ¿El tipo de recibo es el mismo para cada transacción?

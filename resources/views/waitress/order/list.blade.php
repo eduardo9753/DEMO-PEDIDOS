@@ -44,8 +44,8 @@
                         <!-- Row end -->
 
                         <!-- Row start -->
-                        <a href="{{ route('waitress.table.index') }}" class="btn btn-outline-warning">Mesas</a>
-                        <a href="{{ route('waitress.order.list') }}" class="btn btn-outline-primary">Tus Ordenes</a>
+                        <a href="{{ route('waitress.table.index') }}" class="btn btn-warning">Mesas</a>
+                        <a href="{{ route('waitress.order.list') }}" class="btn btn-primary">Tus Ordenes</a>
                         <div class="row gx-2">
                             @if (session()->has('mensaje'))
                                 <div class="alert border border-danger alert-dismissible fade show" role="alert">
@@ -57,7 +57,7 @@
 
                             <input type="text" id="count_order_waitress" name="count_order_waitress" value="1"
                                 hidden>
-                            <div class="col-sm-12" id="allWaitressOrders"></div>
+                            <div class="col-sm-12 mt-3" id="allWaitressOrders"></div>
                         </div>
                         <!-- Row end -->
 

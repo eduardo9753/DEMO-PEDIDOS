@@ -45,8 +45,8 @@
 
                         <!-- Row start -->
                         <a class="btn btn-info" href="">ACTUALIZAR</a>
-                        <a href="{{ route('waitress.table.index') }}" class="btn btn-outline-warning">Mesas</a>
-                        <a href="{{ route('waitress.order.list') }}" class="btn btn-outline-primary">Tus Ordenes</a>
+                        <a href="{{ route('waitress.table.index') }}" class="btn btn-warning">Mesas</a>
+                        <a href="{{ route('waitress.order.list') }}" class="btn btn-primary">Tus Ordenes</a>
                         <div class="row gx-2 mb-3">
                             @if (session()->has('mensaje'))
                                 <div class="alert border border-danger alert-dismissible fade show" role="alert">
@@ -59,7 +59,7 @@
                                 hidden>
 
                             @foreach ($tables as $table)
-                                <div class="col-sm-4 col-6">
+                                <div class="col-sm-4 col-6 mt-3">
                                     <div class="card px-3 py-2 mb-2 d-flex flex-row align-items-center">
                                         <div class="position-relative shape-block">
                                             <img src="https://cdn-icons-png.flaticon.com/512/607/607008.png"

@@ -53,7 +53,7 @@
                                     @csrf
                                     <input type="text" name="table_id" value="{{ $order->table_id }}" hidden>
                                     <input type="text" name="order_id" id="order_id" value="{{ $order->id }}" hidden>
-                                    <button type="submit" class="btn btn-info btn-sm">
+                                    <button type="submit" class="btn btn-info">
                                         PRECUENTA
                                     </button>
                                 </form>
@@ -65,7 +65,7 @@
                                 </form>
 
                                 <div>
-                                    <a href="{{ route('waitress.table.index') }}" class="btn btn-outline-warning">Mesas</a>
+                                    <a href="{{ route('waitress.table.index') }}" class="btn btn-warning">Mesas</a>
                                 </div>
                             </div>
 
@@ -94,7 +94,7 @@
                                                             <input type="text" name="table_id" class="form-control"
                                                                 value="{{ $table->id }}" hidden>
                                                             <input type="text" class="form-control"
-                                                                value="{{ $table->name }}">
+                                                                value="{{ $table->name }}" readonly>
                                                             <span class="input-group-text">
                                                                 <i class="icon-calendar"></i>
                                                             </span>

@@ -183,22 +183,17 @@
                                                                         <tr>
                                                                             <td>{{ $key + 1 }}</td>
                                                                             <td>
-                                                                                <input type="text" class="form-control"
-                                                                                    value="{{ $detail->dish->name }}">
+                                                                                <span>{{ $detail->dish->name }}</span>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="text" class="form-control"
-                                                                                    value="{{ $detail->quantity }}">
+                                                                                <span>{{ $detail->quantity }}</span>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="text" class="form-control"
-                                                                                    value="{{ $detail->dish->price }}">
+                                                                                <span>{{ $detail->dish->price }}</span>
                                                                             </td>
                                                                             <td>
-                                                                                <input type="text" class="form-control"
-                                                                                    value="{{ $detail->quantity * $detail->dish->price }}">
+                                                                                <span>{{ $detail->quantity * $detail->dish->price }}</span>
                                                                             </td>
-
                                                                         </tr>
                                                                     @endforeach
                                                                 </tbody>
@@ -217,7 +212,7 @@
                                                     <div class=" gap-2">
                                                         <label for="" class="">TOTAL: </label>
                                                         <input type="text" class="form-control"
-                                                            value="{{ $totalAmount }}">
+                                                            value="{{ $totalAmount }}" readonly>
                                                     </div>
 
                                                     <div class="col-md-6">
@@ -238,19 +233,6 @@
                                                                         </div>
                                                                     @endif
                                                                 </div>
-                                                            </div>
-
-                                                            <div class="input-group mt-4">
-                                                                <span class="input-group-text"
-                                                                    id="basic-addon1">S/.</span>
-                                                                <input id="soles" name="soles" type="text"
-                                                                    class="form-control" placeholder="SOLES">
-                                                            </div>
-                                                            <div class="input-group my-1">
-                                                                <span class="input-group-text"
-                                                                    id="basic-addon2">$/.</span>
-                                                                <input id="dolares" name="dolares" type="text"
-                                                                    class="form-control" placeholder="DOLARES">
                                                             </div>
 
                                                             <div class="row">
@@ -286,6 +268,10 @@
                                                                                     class="text-bg-dark">
                                                                                     IZIPAY
                                                                                 </option>
+                                                                                <option value="DOLARES"
+                                                                                    class="text-bg-dark">
+                                                                                    DOLARES
+                                                                                </option>
                                                                             </select>
                                                                             <span class="input-group-text">
                                                                                 <i class="icon-calendar"></i>
@@ -315,13 +301,10 @@
 
                                                         {{-- PARA CALCULAR COBROS MULTIPLES --}}
                                                         <div id="pagosMultiplesFields" style="display: none;">
-                                                            @php
-                                                                $numeroClientes = 2;
-                                                            @endphp
                                                             <div class="col-sm-12 col-12 mt-3">
                                                                 <div class="mb-3">
                                                                     @if ($order->state == 'PEDIDO')
-                                                                        <button type="submit" id=""
+                                                                        <button type="submit" id="botonPagoMultiple"
                                                                             class="btn btn-primary w-100">Cobrar pagos
                                                                             multiples</button>
                                                                     @else
@@ -336,12 +319,13 @@
                                                                 </div>
                                                             </div>
 
-                                                            <div class="input-group mb-1">
+                                                            <div class="input-group my-3">
                                                                 <span class="input-group-text">Asigne la cantidad de
                                                                     clientes</span>
                                                                 <input id="cantidad_clientes_pagos"
                                                                     name="cantidad_clientes_pagos" type="number"
-                                                                    class="form-control" placeholder="digite un número">
+                                                                    class="form-control"
+                                                                    placeholder="digite un número mayor a 2">
                                                             </div>
 
                                                             <div id="campos_pago_container">
@@ -413,13 +397,11 @@
         <script>
             //PARA PDOER MOSTRAR EL BOTON DE COBRO CUANDO HAYA UN VALOR EN EL INPUT
             function actualizarEstadoBotonCobrar() {
-                var soles = document.getElementById('soles');
-                var dolares = document.getElementById('dolares');
                 var tarjeta = document.getElementById('tarjeta');
                 var botonCobrar = document.getElementById('botonCobrar');
 
                 // Verificar si alguno de los campos tiene un valor
-                if (soles.value.trim() !== '' || dolares.value.trim() !== '' || tarjeta.value.trim() !== '') {
+                if (tarjeta.value.trim() !== '') {
                     // Si alguno tiene un valor, activar el botón de cobrar
                     botonCobrar.disabled = false;
                 } else {
@@ -434,31 +416,30 @@
                 actualizarEstadoBotonCobrar();
 
                 // Agregar eventos de entrada a los campos de soles, dólares y tarjeta
-                document.getElementById('soles').addEventListener('input', actualizarEstadoBotonCobrar);
-                document.getElementById('dolares').addEventListener('input', actualizarEstadoBotonCobrar);
                 document.getElementById('tarjeta').addEventListener('input', actualizarEstadoBotonCobrar);
             });
         </script>
 
         <script>
-            // Obtener el monto total de la compra
+            // FUNCION PARA CALCULAR EL VUELTO
             var totalAmount = {{ $totalAmount }};
             var totalIngresado = 0;
 
             // Función para calcular el vuelto
             function calcularVuelto() {
                 // Obtener los valores de los campos de entrada de los montos
-                var soles = parseFloat(document.getElementById('soles').value);
-                var dolares = parseFloat(document.getElementById('dolares').value);
                 var tarjeta = parseFloat(document.getElementById('tarjeta').value);
+                var tipoSelectPayemnt = document.getElementById('paymentMethodSelect').value;
 
                 // Verificar si los valores parseados son falsy y asignar cero en ese caso
-                soles = soles || 0;
-                dolares = dolares || 0;
                 tarjeta = tarjeta || 0;
 
                 // Calcular el monto total ingresado
-                totalIngresado = soles + (dolares * 3.77) + tarjeta;
+                if (tipoSelectPayemnt === 'DOLARES') {
+                    totalIngresado = (tarjeta * 3.77);
+                } else {
+                    totalIngresado = tarjeta;
+                }
 
                 // Calcular el vuelto
                 if (totalIngresado > totalAmount) {
@@ -467,17 +448,14 @@
                 } else {
                     document.getElementById('vuelto').value = 0;
                 }
-                // Actualizar el campo de entrada de "VUELTO" con el resultado
-                // document.getElementById('vuelto').value = vuelto.toFixed(2);
             }
 
             // Asignar la función calcularVuelto a los eventos oninput de los campos de entrada de los montos
-            document.getElementById('soles').oninput = calcularVuelto;
-            document.getElementById('dolares').oninput = calcularVuelto;
             document.getElementById('tarjeta').oninput = calcularVuelto;
         </script>
 
         <script>
+            //PARA PINTAR LO QUE ESCOGO EN EL SELECT Y PONERLO EN EL SPAN
             document.addEventListener('DOMContentLoaded', function() {
                 // Seleccionar el elemento select y el elemento span
                 const paymentMethodSelect = document.getElementById('paymentMethodSelect');
@@ -511,9 +489,11 @@
                         case 'IZIPAY':
                             visaSpan.textContent = 'IZIPAY';
                             break;
+                        case 'DOLARES':
+                            visaSpan.textContent = 'DOLARES';
+                            break;
                         default:
                             // Si no coincide con ninguna opción, dejar el texto del span como está
-                            // Puedes ajustar esto según sea necesario
                             visaSpan.textContent = 'Otro método de pago';
                             break;
                     }
@@ -530,8 +510,8 @@
         </script>
 
         <script>
-            // Opciones para el select
-            var opciones = ["EFECTIVO", "YAPE", "PLIN", "TARJETA", "TUNKY", "AMEX", "IZIPAY"];
+            // OPCIONES PARA PAGOS MULTILPLES Y GUARDARLO EN LA BASE DE DATOS
+            var opciones = ["EFECTIVO", "YAPE", "PLIN", "TARJETA", "TUNKY", "AMEX", "IZIPAY", "DOLARES"];
 
             // Función para generar los campos de pago según la cantidad de clientes
             function generarCamposDePago() {
@@ -575,10 +555,30 @@
                     container.appendChild(divRow);
                 }
             }
-
             // Llamar a la función cuando cambie el valor del campo cantidad_clientes_pagos
             document.getElementById('cantidad_clientes_pagos').addEventListener('input', generarCamposDePago);
         </script>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const botonPagoMultiple = document.getElementById('botonPagoMultiple');
+
+                function actualizarEstadoBoton() {
+                    var cantidadClientes = parseInt(document.getElementById('cantidad_clientes_pagos').value);
+                    // Habilitar el botón si la cantidad de clientes es mayor que 1, de lo contrario, deshabilitarlo
+                    if (cantidadClientes >= 2) {
+                        botonPagoMultiple.disabled = false;
+                    } else {
+                        botonPagoMultiple.disabled = true;
+                    }
+                }
+                // Llamar a la función de actualización del estado del botón cuando cambie el valor del campo cantidad_clientes_pagos
+                document.getElementById('cantidad_clientes_pagos').addEventListener('input', actualizarEstadoBoton);
+                // Llamar a la función de actualización del estado del botón cuando se carga la página
+                actualizarEstadoBoton();
+            });
+        </script>
+
 
     </body>
 @endsection
