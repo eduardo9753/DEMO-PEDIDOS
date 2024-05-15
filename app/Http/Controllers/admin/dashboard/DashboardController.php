@@ -16,7 +16,7 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-       // $this->middleware('can:Ver dashboard');
+        $this->middleware('can:Ver dashboard');
     }
 
     //MENU PRINCIPAL DE DEL ADMIN
