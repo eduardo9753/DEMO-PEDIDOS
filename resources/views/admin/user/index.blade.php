@@ -57,13 +57,15 @@
                                         @endif
 
                                         <div class="table-responsive">
+                                            {{-- modal crear usuario --}}
+                                            @include('helpers.admin.modal-crear-usuario')
                                             <table class="table" id="datatable">
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
                                                         <th>NOMBRE</th>
                                                         <th>EMAIL</th>
-                                                        <th>INSCRITO</th>
+                                                        <th>ROL</th>
                                                         <th>ASIGNAR ROL</th>
                                                     </tr>
                                                 </thead>
@@ -74,15 +76,18 @@
                                                             <td>{{ $user->name }}</td>
                                                             <td>{{ $user->email }}</td>
                                                             <td>
-                                                                @if ($user->created_at)
-                                                                    {{ $user->created_at->diffForHumans() }}
-                                                                @else
-                                                                    No hay fecha de creación establecida
-                                                                @endif
+                                                                <span class="badge border border-light">
+                                                                    @forelse ($user->getRoleNames() as $role)
+                                                                        {{ $role }}
+                                                                    @empty
+                                                                        usuario sin rol
+                                                                    @endforelse
+                                                                </span>
                                                             </td>
                                                             <td>
                                                                 <a class="btn btn-outline-warning"
-                                                                    href="{{ route('admin.users.edit', ['user' => $user]) }}">Asignar Rol</a>
+                                                                    href="{{ route('admin.users.edit', ['user' => $user]) }}">Asignar
+                                                                    Rol</a>
                                                             </td>
                                                         </tr>
                                                     @empty

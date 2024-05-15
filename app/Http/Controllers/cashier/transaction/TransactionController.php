@@ -13,6 +13,12 @@ use Illuminate\Support\Facades\App;
 
 class TransactionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('can:Gestión transaccion');
+    }
+
     //lista de las ordenes pagadas tipo FACTURA
     public function index()
     {
