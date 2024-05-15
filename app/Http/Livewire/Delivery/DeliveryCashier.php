@@ -32,7 +32,7 @@ class DeliveryCashier extends Component
     public $orderDetails;
 
     //tabla table
-    public $table_id = 53;
+    public $table_id = 13;
     public $table_name = "Mesa Delibery";
 
     //ide de la categoria
