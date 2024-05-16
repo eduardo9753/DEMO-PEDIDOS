@@ -50,15 +50,20 @@ class OrderController extends Controller
     //para poder modificar el pedido del cliente "agregar mas platos"
     public function show(Order $order)
     {
-        //si orden de la mesa esta cobrada la liberamos y volvemos a la lista de mesas
-        $order = Order::find($order->id);
-        if ($order->state == 'OCULTO' || $order->state == 'COBRADO') {
-            $update = Table::find($order->table_id);
-            $save = $update->update(['state' => 'ACTIVO']);
+        // Verificar si la orden existe
+        if (!$order) {
+            return redirect()->route('waitress.table.index')->with('error', 'Orden no encontrada.');
+        }
 
-            if ($save) {
-                return redirect()->route('waitress.table.index');
+        //si orden de la mesa esta cobrada la liberamos y volvemos a la lista de mesas
+        if ($order->state == 'OCULTO' || $order->state == 'COBRADO') {
+            $table = Table::find($order->table_id);
+
+            if ($table) {
+                $table->update(['state' => 'ACTIVO']);
             }
+
+            return redirect()->route('waitress.table.index');
         } else if ($order->state == 'PEDIDO') {
             //de lo contrario vemos la lista de pedidos
             $table = Table::find($order->table_id);
