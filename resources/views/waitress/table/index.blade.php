@@ -74,9 +74,7 @@
                                                 </a>
                                             @elseif ($table->state == 'INACTIVO')
                                                 @php
-                                                    $order = $table->orders
-                                                        ->where('user_id', auth()->user()->id)
-                                                        ->last(); // Filtrar y obtener la última orden
+                                                    $order = $table->orders->last(); // Filtrar y obtener la última orden
                                                 @endphp
                                                 @if ($order)
                                                     <a href="{{ route('waitress.order.show', ['order' => $order->id]) }}"
@@ -88,9 +86,7 @@
                                                 @endif
                                             @else
                                                 @php
-                                                    $order = $table->orders
-                                                        ->where('user_id', auth()->user()->id)
-                                                        ->last(); // Filtrar y obtener la última orden
+                                                    $order = $table->orders->last(); // Filtrar y obtener la última orden
                                                 @endphp
                                                 @if ($order)
                                                     <a href="{{ route('waitress.order.show', ['order' => $order->id]) }}"
