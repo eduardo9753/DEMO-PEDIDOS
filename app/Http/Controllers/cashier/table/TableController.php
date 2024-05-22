@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\cashier\table;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Models\Table;
+use Facade\Ignition\Tabs\Tab;
 use Illuminate\Http\Request;
 
 class TableController extends Controller
@@ -22,6 +24,20 @@ class TableController extends Controller
         return view('cashier.table.index', [
             'tables' => $tables
         ]);
+    }
+
+    public function liberarMesa(Table $table)
+    {
+        $table = Table::find($table->id);
+        $update = $table->update([
+            'state' => 'ACTIVO'
+        ]);
+
+        if ($update) {
+            return redirect()->back()->with('mensaje', 'mesa activada');
+        } else {
+            return redirect()->back()->with('mensaje', 'mesa no activada');
+        }
     }
 
 

@@ -78,6 +78,7 @@
         </div>
         <!-- Page wrapper end -->
 
-
+        {{-- LISTA DE LAS ORDENES QUE VA VER LA CAJERA --}}
+        <script src="{{ asset('js/cashier/all-orders.js') }}"></script>
     </body>
 @endsection

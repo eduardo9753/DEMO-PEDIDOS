@@ -44,7 +44,7 @@
                         <!-- Row end -->
 
                         <!-- Row start -->
-                        <a class="btn btn-info" href="">ACTUALIZAR</a>
+                        <a class="boton-redondo mb-3" href=""><i class='bx bx-refresh bx-spin'></i></a>
                         <a href="{{ route('waitress.table.index') }}" class="btn btn-warning">Mesas</a>
                         <a href="{{ route('waitress.order.list') }}" class="btn btn-primary">Tus Ordenes</a>
                         <div class="row gx-2 mb-3">

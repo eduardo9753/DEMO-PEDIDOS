@@ -81,6 +81,7 @@
         </div>
         <!-- Page wrapper end -->
 
-
+        {{-- LISTA DE LAS ORDENES CREADAS POR CADA MESA EN FUNCION DE LA MESERA --}}
+        <script src="{{ asset('js/waitress/all-orders.js') }}"></script>
     </body>
 @endsection

@@ -52,7 +52,8 @@
                                         aria-label="Close"></button>
                                 </div>
                             @endif
-                            <input type="text" id="count_order_delivery" name="count_order_delivery" value="1" hidden>
+                            <input type="text" id="count_order_delivery" name="count_order_delivery" value="1"
+                                hidden>
                             <div class="col-sm-12" id="allOrdersDelivery">
                             </div>
                         </div>
@@ -79,5 +80,7 @@
         <!-- Page wrapper end -->
 
 
+        {{-- TODAS LAS ORDENES QUE LA CAJA VERA DE TIPO DELIVERY --}}
+        <script src="{{ asset('js/cashier/all-orders-delivery.js') }}"></script>
     </body>
 @endsection

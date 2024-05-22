@@ -44,7 +44,7 @@
                         <!-- Row end -->
 
                         <!-- Row start -->
-                        <a class="btn btn-info mb-3" href="">ACTUALIZAR</a>
+                        <a class="boton-redondo mb-3" href=""><i class='bx bx-refresh bx-spin'></i></a>
                         {{-- listas de mesas que comparte tanto cachier como el visor --}}
                         @include('helpers.mesas-cashier-visor', [
                             'tables' => $tables,
