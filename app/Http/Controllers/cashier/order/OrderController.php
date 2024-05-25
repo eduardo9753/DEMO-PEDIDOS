@@ -17,7 +17,6 @@ class OrderController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
-       
     }
 
     //lista de las ordenes en estado 'PEDIDO'
@@ -81,7 +80,53 @@ class OrderController extends Controller
         $tables = Table::find($order->table_id);
         $tables->update(['state' => 'ACTIVO']);
 
-        if ($request->tipo_pago == 'opcion_factura') {
+        if ($request->tipo_pago === 'opcion_pago_multiple') {
+            if ($request->cantidad_clientes_pagos > 0 && array_sum($request->pago_multiple) > 0) {
+                // Iterar sobre los métodos de pago y montos
+                for ($i = 0; $i < count($request->payment_method); $i++) {
+                    // Crear la transacción para cada pago múltiple
+                    $payment = Transaction::create([
+                        'amount' => $request->pago_multiple[$i], // Monto pagado por este cliente
+                        'income_tax' => $igv * $request->pago_multiple[$i] / $totalAmount, // Proporción del impuesto para este monto
+                        'cash_payment' => $request->pago_multiple[$i], // Monto pagado por este cliente
+                        'payment_method' => $request->payment_method[$i], // Método de pago para este cliente
+                        'type_receipt' => 'BOLETA', // ¿El tipo de recibo es el mismo para cada transacción?
+                        'payment_date' => date('Y-m-d'), // Fecha de pago actual
+                        'payment_time' => date('H:i:s'), // Hora de pago actual
+                        'order_id' => $order->id, // ID del pedido relacionado
+                        'user_id' => auth()->user()->id // ID del usuario que realiza el pago (puedes ajustarlo según tu lógica de autenticación)
+                    ]);
+                }
+
+                if ($payment) {
+                    $order->update(['state' => 'COBRADO']);
+                    return redirect()->route('cashier.pay.boleta')->with('message', 'pago procesado correctamente');
+                } else {
+                    return redirect()->route('cashier.pay.boleta')->with('message', 'pago no procesado');
+                }
+            } else {
+                return redirect()->back()->with('message', 'Por favor, ingrese al menos un valor de monto en los pagos múltiples.');
+            }
+        } elseif ($request->tipo_pago === 'opcion_boleta') {
+            $payment = Transaction::create([
+                'amount' => $totalAmount,
+                'income_tax' => $igv,
+                'cash_payment' => $dineroCliente,
+                'payment_method' => $request->payment_method_unico,
+                'type_receipt' => 'BOLETA',
+                'payment_date' => date('Y-m-d'),
+                'payment_time' => date('H:i:s'),
+                'order_id' => $order->id,
+                'user_id' => auth()->user()->id
+            ]);
+
+            if ($payment) {
+                $order->update(['state' => 'COBRADO']);
+                return redirect()->route('cashier.pay.boleta')->with('message', 'pago procesado correctamente');
+            } else {
+                return redirect()->route('cashier.pay.boleta')->with('message', 'pago no procesado');
+            }
+        } elseif ($request->tipo_pago === 'opcion_factura') {
             //guardar al cliente 
             $customer = Customer::create([
                 'name' => $request->client_name,
@@ -100,7 +145,7 @@ class OrderController extends Controller
                         'amount' => $totalAmount,
                         'income_tax' => $igv,
                         'cash_payment' => $dineroCliente,
-                        'payment_method' => $request->payment_method,
+                        'payment_method' => $request->payment_method_unico,
                         'type_receipt' => 'FACTURA',
                         'payment_date' => date('Y-m-d'),
                         'payment_time' => date('H:i:s'),
@@ -116,48 +161,9 @@ class OrderController extends Controller
                     }
                 }
             }
-        } else if ($request->tipo_pago == 'opcion_pago_multiple') {
-            // Iterar sobre los métodos de pago y montos
-            for ($i = 0; $i < count($request->payment_method); $i++) {
-                // Crear la transacción para cada pago múltiple
-                $payment = Transaction::create([
-                    'amount' => $request->pago_multiple[$i], // Monto pagado por este cliente
-                    'income_tax' => $igv * $request->pago_multiple[$i] / $totalAmount, // Proporción del impuesto para este monto
-                    'cash_payment' => $request->pago_multiple[$i], // Monto pagado por este cliente
-                    'payment_method' => $request->payment_method[$i], // Método de pago para este cliente
-                    'type_receipt' => 'BOLETA', // ¿El tipo de recibo es el mismo para cada transacción?
-                    'payment_date' => date('Y-m-d'), // Fecha de pago actual
-                    'payment_time' => date('H:i:s'), // Hora de pago actual
-                    'order_id' => $order->id, // ID del pedido relacionado
-                    'user_id' => auth()->user()->id // ID del usuario que realiza el pago (puedes ajustarlo según tu lógica de autenticación)
-                ]);
-            }
-
-            if ($payment) {
-                $order->update(['state' => 'COBRADO']);
-                return redirect()->route('cashier.pay.boleta')->with('message', 'pago procesado correctamente');
-            } else {
-                return redirect()->route('cashier.pay.boleta')->with('message', 'pago no procesado');
-            }
-        } else if ($request->tipo_pago == 'opcion_boleta') {
-            $payment = Transaction::create([
-                'amount' => $totalAmount,
-                'income_tax' => $igv,
-                'cash_payment' => $dineroCliente,
-                'payment_method' => $request->payment_method,
-                'type_receipt' => 'BOLETA',
-                'payment_date' => date('Y-m-d'),
-                'payment_time' => date('H:i:s'),
-                'order_id' => $order->id,
-                'user_id' => auth()->user()->id
-            ]);
-
-            if ($payment) {
-                $order->update(['state' => 'COBRADO']);
-                return redirect()->route('cashier.pay.boleta')->with('message', 'pago procesado correctamente');
-            } else {
-                return redirect()->route('cashier.pay.boleta')->with('message', 'pago no procesado');
-            }
+        } else {
+            // Opción no reconocida, manejar el error apropiadamente
+            return redirect()->back()->with('message', 'Opción de pago no válida.');
         }
     }
 

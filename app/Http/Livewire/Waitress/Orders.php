@@ -96,6 +96,7 @@ class Orders extends Component
         if (!$order) {
             $order = Order::create([
                 'state' => 'PENDIENTE',
+                'type' => 'INTERNO', //agregarlo en el modelo
                 'table_id' => $this->table_id,
                 'order_number' => $ordersCount,
                 'user_id' => auth()->user()->id

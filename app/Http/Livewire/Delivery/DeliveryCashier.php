@@ -18,6 +18,7 @@ class DeliveryCashier extends Component
     public $customer_id;
     public $name;
     public $identity;
+    public $address;
 
     //tabla categorias
     public $categories;
@@ -32,7 +33,7 @@ class DeliveryCashier extends Component
     public $orderDetails;
 
     //tabla table
-    public $table_id = 13;
+    public $table_id = 6; //13
     public $table_name = "Mesa Delibery";
 
     //ide de la categoria
@@ -75,6 +76,7 @@ class DeliveryCashier extends Component
         $this->validate([
             'name' => 'required|string',
             'identity' => 'required|string',
+            'address' => 'required|string',
             'product_id' => 'required|exists:dishes,id',
             'table_id' => 'required|exists:tables,id'
         ]);
@@ -87,7 +89,8 @@ class DeliveryCashier extends Component
             $customer = Customer::create([
                 'name' => $this->name,
                 'email' => '',
-                'identity' => $this->identity
+                'identity' => $this->identity,
+                'address' => $this->address
             ]);
         }
 
@@ -111,7 +114,7 @@ class DeliveryCashier extends Component
         if (!$order) {
             $order = Order::create([
                 'state' => 'PENDIENTE',
-                'type' => 'DELIBERY', //agregarlo en el modelo
+                'type' => 'DELIVERY', //agregarlo en el modelo
                 'customer_id' => $customer->id,
                 'table_id' => $this->table_id, // Puedes cambiar esto según la lógica de tu aplicación
                 'order_number' => $ordersCount,

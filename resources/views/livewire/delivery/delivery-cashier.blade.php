@@ -13,6 +13,18 @@
                     </div>
                 </div>
 
+                <div class="col-sm-6 col-12">
+                    <div class="mb-3">
+                        <label for="" class="form-label">DIRECCIÓN</label>
+                        <input type="text" class="form-control" wire:model="address"
+                            placeholder="Dirección del Cliente" />
+                        @error('address')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+
+
                 <div class="col-sm-3 col-12">
                     <div class="mb-3">
                         <label for="" class="form-label">DNI/CI/CELULAR</label>
@@ -23,7 +35,6 @@
                         @enderror
                     </div>
                 </div>
-
 
                 <div class="col-md-3 col-12">
                     <div class="mb-3">
@@ -43,7 +54,6 @@
                         @enderror
                     </div>
                 </div>
-
 
                 <div class="col-md-3 col-12">
                     <div class="mb-3">
@@ -67,7 +77,6 @@
                     </div>
                 </div>
 
-
                 <div class="col-md-3 col-12">
                     <div class="mb-3">
                         <label for="" class="form-label">Producto</label>
@@ -76,7 +85,8 @@
                                 <option value="" class="text-bg-dark">Seleccionar producto</option>
                                 @if ($products->count() > 0)
                                     @foreach ($products as $product)
-                                        <option value="{{ $product->id }}" class="text-bg-dark">{{ $product->name }} - S/.{{ $product->price }}
+                                        <option value="{{ $product->id }}" class="text-bg-dark">{{ $product->name }} -
+                                            S/.{{ $product->price }}
                                         </option>
                                     @endforeach
                                 @else
@@ -92,7 +102,6 @@
                         @enderror
                     </div>
                 </div>
-
 
                 <div class="col-sm-2 col-12">
                     <div class="mb-3">
@@ -115,32 +124,32 @@
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>
-                                <div class="d-flex align-items-center">
+                            <th class="text-center">
+                                <div class="d-flex align-items-center justify-content-center">
                                     <span class="icon-add_task me-2 fs-4"></span>
                                     Plato
                                 </div>
                             </th>
-                            <th>
-                                <div class="d-flex align-items-center">
+                            <th class="text-center">
+                                <div class="d-flex align-items-center justify-content-center">
                                     <span class="icon-published_with_changes me-2 fs-4"></span>
                                     Cantidad
                                 </div>
                             </th>
-                            <th>
-                                <div class="d-flex align-items-center">
+                            <th class="text-center">
+                                <div class="d-flex align-items-center justify-content-center">
                                     <span class="icon-playlist_add_check me-2 fs-4"></span>
                                     Precio
                                 </div>
                             </th>
-                            <th>
-                                <div class="d-flex align-items-center">
+                            <th class="text-center">
+                                <div class="d-flex align-items-center justify-content-center">
                                     <span class="icon-calendar me-2 fs-4"></span>
                                     Monto
                                 </div>
                             </th>
-                            <th>
-                                <div class="d-flex align-items-center">
+                            <th class="text-center">
+                                <div class="d-flex align-items-center justify-content-center">
                                     <span class="icon-settings me-2 fs-4"></span>
                                     Acciones
                                 </div>
@@ -151,24 +160,32 @@
                         @foreach ($orderDetails as $key => $detail)
                             <tr>
                                 <td>{{ $key + 1 }}</td>
-                                <td>
-                                    <input type="text" class="form-control" value="{{ $detail->dish->name }}">
+                                <td class="text-center">
+                                    <span>{{ $detail->dish->name }}</span>
+                                </td>
+
+                                <td class="text-center">
+                                    <div
+                                        class="d-flex flex-column flex-md-row align-items-center justify-content-center">
+                                        <button class="btn btn-primary mb-md-0"
+                                            wire:click="plus({{ $detail->id }})">
+                                            <span class="icon-plus"></span>
+                                        </button>
+                                        <button class="btn btn-outline-light mx-2">{{ $detail->quantity }}</button>
+                                        <button class="btn btn-info" wire:click="minus({{ $detail->id }})">
+                                            <span class="icon-minus"></span>
+                                        </button>
+                                    </div>
+                                </td>
+
+                                <td class="text-center">
+                                    <span class="mx-2">{{ $detail->dish->price }}</span>
+                                </td>
+
+                                <td class="text-center">
+                                    <span>{{ $detail->quantity * $detail->dish->price }}</span>
                                 </td>
                                 <td>
-                                    <input type="text" class="form-control" value="{{ $detail->quantity }}">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control" value="{{ $detail->dish->price }}">
-                                </td>
-                                <td>
-                                    <input type="text" class="form-control"
-                                        value="{{ $detail->quantity * $detail->dish->price }}">
-                                </td>
-                                <td>
-                                    <button class="btn btn-primary" wire:click="plus({{ $detail->id }})"><span
-                                            class="icon-plus"></span></button>
-                                    <button class="btn btn-secondary" wire:click="minus({{ $detail->id }})"><span
-                                            class="icon-minus"></span></button>
                                     <button class="btn btn-danger" wire:click="trash({{ $detail->id }})"><span
                                             class="icon-trash"></span></button>
                                 </td>

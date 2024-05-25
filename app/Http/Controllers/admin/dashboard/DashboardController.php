@@ -27,6 +27,7 @@ class DashboardController extends Controller
 
         $ordersCount = DB::table('orders')
             ->whereIn('state', ['COBRADO', 'OCULTO'])
+            ->where('type', 'INTERNO')
             ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
             ->count();
 

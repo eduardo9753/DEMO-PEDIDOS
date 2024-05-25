@@ -136,7 +136,7 @@
                                 <td class="text-center">
                                     <div
                                         class="d-flex flex-column flex-md-row align-items-center justify-content-center">
-                                        <button class="btn btn-primary mb-2 mb-md-0"
+                                        <button class="btn btn-primary mb-md-0"
                                             wire:click="plus({{ $detail->id }})">
                                             <span class="icon-plus"></span>
                                         </button>

@@ -241,7 +241,7 @@
                                                                         <div class="input-group">
                                                                             <select class="form-select"
                                                                                 id="paymentMethodSelect"
-                                                                                name="payment_method">
+                                                                                name="payment_method_unico">
                                                                                 <option value="EFECTIVO"
                                                                                     class="text-bg-dark">
                                                                                     EFECTIVO</option>
@@ -324,7 +324,7 @@
                                                                     clientes</span>
                                                                 <input id="cantidad_clientes_pagos"
                                                                     name="cantidad_clientes_pagos" type="number"
-                                                                    class="form-control"
+                                                                    class="form-control" value="0"
                                                                     placeholder="digite un número mayor a 2">
                                                             </div>
 
