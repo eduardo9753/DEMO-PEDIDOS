@@ -86,6 +86,9 @@
 <!--JS FULL CALENDAR-->
 <script src="{{ asset('lib/fullcalendar/dist/index.global.js') }}"></script>
 
+<!--JS MOMENT-->
+<script src="{{ asset('lib/moment/moment.js') }}"></script>
+
 <!-- Custom JS files -->
 <script src="{{ asset('assets/js/custom.js') }}"></script>
 

@@ -22,16 +22,14 @@ class CreateReservationsTable extends Migration
             $table->integer('number_of_seats'); //numero de sillas
 
             // Fechas y horas de la reserva
-            $table->date('start')->nullable();       // Fecha de inicio de la reserva
-            $table->date('end')->nullable();         // Fecha de fin de la reserva (si aplica)
-            $table->time('hour_start')->nullable();        // Hora incio reserva
-            $table->time('hour_end')->nullable();        // Hora fin reserva
+            $table->dateTime('start')->nullable();       // Fecha de inicio con hora de la reserva
+            $table->dateTime('end')->nullable();         // Fecha de fin con hora de la reserva (si aplica)
+            $table->string('allDay')->nullable();
             $table->string('state')->nullable();
 
             // Claves foráneas
             $table->unsignedBigInteger('table_id');
             $table->unsignedBigInteger('user_id');
-
 
             // Restricciones de clave foránea
             $table->foreign('table_id')->references('id')->on('tables')->onDelete('cascade');

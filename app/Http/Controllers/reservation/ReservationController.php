@@ -32,9 +32,7 @@ class ReservationController extends Controller
             'number_phone' => 'required|numeric',
             'number_of_seats' => 'required|integer',
             'start' => 'required|date',
-            'hour_start' => 'required|date_format:H:i',
-            'end' => 'nullable|date',
-            'hour_end' => 'nullable|date_format:H:i',
+            'end' => 'required|date',
         ]);
 
         if ($validator->fails()) {
@@ -43,6 +41,13 @@ class ReservationController extends Controller
                 'error' => $validator->errors()->toArray()
             ]);
         } else {
+
+            //validando las fechas
+            if ($request->start == $request->end) {
+                $allDay = "true";
+            } else {
+                $allDay = ""; //o puede ser vacio
+            }
             //guardando los campos
             $save = Reservation::create([
                 'title' => $request->title,
@@ -51,9 +56,8 @@ class ReservationController extends Controller
                 'url' => '',
                 'number_of_seats' => $request->number_of_seats,
                 'start' => $request->start,
-                'hour_start' => $request->hour_start,
                 'end' => $request->end,
-                'hour_end' => $request->hour_end,
+                'allDay' => $allDay,
                 'state' => 'ACTIVO',
                 'table_id' => 1,
                 'user_id' => auth()->user()->id,
@@ -84,10 +88,9 @@ class ReservationController extends Controller
             return [
                 'id' => $reservation->id,
                 'title' => $reservation->title,
-                'start' => $reservation->start . 'T' . $reservation->hour_start,
-                'end' => $reservation->end ? $reservation->end . 'T' . $reservation->hour_end : null,
-                'hour_start' => $reservation->hour_start,
-                'hour_end' => $reservation->hour_end,
+                'start' => $reservation->start,
+                'end' => $reservation->end,
+                'allDay' => $reservation->allDay,
                 'customer_name' => $reservation->customer_name,
                 'number_phone' => $reservation->number_phone,
                 'number_of_seats' => $reservation->number_of_seats,
@@ -110,9 +113,7 @@ class ReservationController extends Controller
             'number_phone_up' => 'required|numeric',
             'number_of_seats_up' => 'required|integer',
             'start_up' => 'required|date',
-            'hour_start_up' => 'required|date_format:H:i',
             'end_up' => 'nullable|date',
-            'hour_end_up' => 'nullable|date_format:H:i',
         ]);
 
         if ($validator->fails()) {
@@ -121,6 +122,13 @@ class ReservationController extends Controller
                 'error' => $validator->errors()->toArray()
             ]);
         } else {
+            //validando las fechas
+            if ($request->start_up == $request->end_up) {
+                $allDay = "true";
+            } else {
+                $allDay = ""; //o puede ser vacio
+            }
+
             $reservation = Reservation::find($request->id_reservation);
 
             $save = $reservation->update([
@@ -130,9 +138,8 @@ class ReservationController extends Controller
                 'url' => '',
                 'number_of_seats' => $request->number_of_seats_up,
                 'start' => $request->start_up,
-                'hour_start' => $request->hour_start_up,
                 'end' => $request->end_up,
-                'hour_end' => $request->hour_end_up,
+                'allDay' => $allDay,
                 'state' => 'ACTIVO',
                 'table_id' => 1,
                 'user_id' => auth()->user()->id,

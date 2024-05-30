@@ -56,34 +56,18 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="start_up">Fecha de Inicio</label>
-                                <input type="date" class="form-control" id="start_up" name="start_up">
+                                <input type="datetime-local" class="form-control" id="start_up" name="start_up">
                                 {{-- alerta de error --}}
                                 <span class="text-danger error-text start_up_error"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="hour_start_up">Hora de Inicio</label>
-                                <input type="time" class="form-control" id="hour_start_up" name="hour_start_up">
-                                {{-- alerta de error --}}
-                                <span class="text-danger error-text hour_start_up_error"></span>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="end_up">Fecha de Fin</label>
-                                <input type="date" class="form-control" id="end_up" name="end_up">
+                                <input type="datetime-local" class="form-control" id="end_up" name="end_up">
                                 {{-- alerta de error --}}
                                 <span class="text-danger error-text end_up_error"></span>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label for="hour_end_up">Hora de Fin</label>
-                                <input type="time" class="form-control" id="hour_end_up" name="hour_end_up">
-                                {{-- alerta de error --}}
-                                <span class="text-danger error-text hour_end_up_error"></span>
                             </div>
                         </div>
 
