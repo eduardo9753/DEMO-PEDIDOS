@@ -1,110 +1,102 @@
 window.addEventListener('DOMContentLoaded', () => {
     // GUARDAR DATOS DEL EVENTO VIA AJAX "MODAL RESERVATION" BUCLE
-    $('#reservationForm').on('submit', function (event) {
-        event.preventDefault();  // Prevenir la autorecarga de la página
+    $('#reservationForm').on('submit', function (e) {
+        e.preventDefault(); //PARA RETENER EL RECARGE DE LA PAGINA
 
-        // Capturar la URL del formulario
-        let form = $(this);
-        let url = form.attr('action');
+        //variable del formulario
+        var form = this;
 
-        // Variable de los inputs del formulario
-        let datos = form.serialize();
-
-        // VIA AJAX
+        //metodo ajaz
         $.ajax({
-            type: 'POST',
-            url: url,  // Usar la URL capturada
-            data: datos,
+            url: $(form).attr('action'), //lee la ruta del formulario
+            method: $(form).attr('method'), //atributo del metodo "POST| GET ..."
+            data: new FormData(form), //enviando los datos del fornulario
+            processData: false,
+            contentType: false,
+            dataType: 'json', //tipo de dato como objeto "json"
 
             beforeSend: function () {
                 $(form).find('span.error-text').text('');
             },
 
-            success: function (response) {
-                if (response.code == 2) {
-                    $.each(response.error, function (prefix, val) {
+            success: function (data) {
+                if (data.code == 2) {
+                    $.each(data.error, function (prefix, val) {
                         $(form).find('span.' + prefix + '_error').text(val[0]);
                     });
                 } else {
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: response.msg,
-                        showConfirmButton: false,
-                        timer: 2500
-                    }).then(function () {
-                        location.reload();
-                    });
-                    console.log(response);
+                    if (data.code == 1) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: data.msg,
+                            showConfirmButton: false,
+                            timer: 2500
+                        }).then(function () {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: data.msg,
+                            showConfirmButton: false,
+                            timer: 2500
+                        }).then(function () {
+                            location.reload();
+                        });
+                    }
                 }
-            },
-
-            error: function (xhr, status, error) {
-                console.error(xhr.responseText); // Mostrar el error detallado en la consola
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'error',
-                    title: 'Error: ' + xhr.responseText,
-                    showConfirmButton: false,
-                    timer: 2500
-                }).then(function () {
-                    location.reload();
-                });
             }
         });
     });
 
     // FORMULARIO PARA PODER ACTUALIZAR LA RESERVACION
-    $('#reservation-update-Form').on('submit', function (event) {
-        event.preventDefault();  // Prevenir la autorecarga de la página
+    $('#reservation-update-Form').on('submit', function (e) {
+        e.preventDefault();
 
-        // Capturar la URL del formulario
-        let form = $(this);
-        let url = form.attr('action');
+        var form = this;
 
-        // Variable de los inputs del formulario
-        let datos = form.serialize();
-
-        // VIA AJAX
         $.ajax({
-            type: 'POST',
-            url: url,  // Usar la URL capturada
-            data: datos,
+            url: $(form).attr('action'),
+            method: $(form).attr('method'),
+            data: new FormData(form),
+            processData: false,
+            contentType: false,
+            dataType: 'json',
 
             beforeSend: function () {
                 $(form).find('span.error-text').text('');
             },
 
-            success: function (response) {
-                if (response.code == 2) {
-                    $.each(response.error, function (prefix, val) {
+            success: function (data) {
+                if (data.code == 2) {
+                    $.each(data.error, function (prefix, val) {
                         $(form).find('span.' + prefix + '_error').text(val[0]);
                     });
                 } else {
-                    console.log(response);
-                    Swal.fire({
-                        position: 'top-end',
-                        icon: 'success',
-                        title: response.msg,
-                        showConfirmButton: false,
-                        timer: 2500
-                    }).then(function () {
-                        location.reload();
-                    });
+                    if (data.code == 1) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: data.msg,
+                            showConfirmButton: false,
+                            timer: 2500
+                        }).then(function () {
+                            location.reload();
+                        });
+                    } else {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: data.msg,
+                            showConfirmButton: false,
+                            timer: 2500
+                        }).then(function () {
+                            location.reload();
+                        });
+                    }
                 }
-            },
-
-            error: function (xhr, status, error) {
-                console.error(xhr.responseText); // Mostrar el error detallado en la consola
-                Swal.fire({
-                    position: 'top-end',
-                    icon: 'error',
-                    title: 'Error: ' + xhr.responseText,
-                    showConfirmButton: false,
-                    timer: 2500
-                }).then(function () {
-                    location.reload();
-                });
             }
         });
     });
