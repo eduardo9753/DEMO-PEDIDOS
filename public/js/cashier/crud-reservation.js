@@ -33,8 +33,6 @@ window.addEventListener('DOMContentLoaded', () => {
                         showConfirmButton: false,
                         timer: 2500
                     }).then(function () {
-                        // Puedes agregar lógica adicional aquí, como cerrar el modal o actualizar la interfaz
-                        $('#reservationModal').modal('hide');
                         location.reload();
                     });
                     console.log(response);
@@ -50,8 +48,6 @@ window.addEventListener('DOMContentLoaded', () => {
                     showConfirmButton: false,
                     timer: 2500
                 }).then(function () {
-                    // Puedes agregar lógica adicional aquí, como cerrar el modal o actualizar la interfaz
-                    $('#reservationModal').modal('hide');
                     location.reload();
                 });
                 console.error(error);
