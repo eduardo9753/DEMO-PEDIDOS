@@ -50,13 +50,17 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="start">Fecha de Inicio</label>
-                                <input type="date" class="form-control" id="start" name="start" required>
+                                <input type="date" class="form-control" id="start" name="start">
+                                {{-- alerta de error --}}
+                                <span class="text-danger error-text start_error"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="hour_start">Hora de Inicio</label>
-                                <input type="time" class="form-control" id="hour_start" name="hour_start" required>
+                                <input type="time" class="form-control" id="hour_start" name="hour_start">
+                                {{-- alerta de error --}}
+                                <span class="text-danger error-text hour_start_error"></span>
                             </div>
                         </div>
 
@@ -65,12 +69,16 @@
                             <div class="form-group">
                                 <label for="end">Fecha de Fin</label>
                                 <input type="date" class="form-control" id="end" name="end">
+                                {{-- alerta de error --}}
+                                <span class="text-danger error-text end_error"></span>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label for="hour_end">Hora de Fin</label>
                                 <input type="time" class="form-control" id="hour_end" name="hour_end">
+                                {{-- alerta de error --}}
+                                <span class="text-danger error-text hour_end_error"></span>
                             </div>
                         </div>
 

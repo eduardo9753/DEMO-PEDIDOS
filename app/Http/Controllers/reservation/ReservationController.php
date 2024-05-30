@@ -31,7 +31,10 @@ class ReservationController extends Controller
             'customer_name' => 'required|string',
             'number_phone' => 'required|numeric',
             'number_of_seats' => 'required|integer',
-
+            'start' => 'required|date',
+            'hour_start' => 'required|date_format:H:i',
+            'end' => 'nullable|date',
+            'hour_end' => 'nullable|date_format:H:i',
         ]);
 
         if ($validator->fails()) {
@@ -106,7 +109,10 @@ class ReservationController extends Controller
             'customer_name_up' => 'required|string',
             'number_phone_up' => 'required|numeric',
             'number_of_seats_up' => 'required|integer',
-
+            'start_up' => 'required|date',
+            'hour_start_up' => 'required|date_format:H:i',
+            'end_up' => 'nullable|date',
+            'hour_end_up' => 'nullable|date_format:H:i',
         ]);
 
         if ($validator->fails()) {
