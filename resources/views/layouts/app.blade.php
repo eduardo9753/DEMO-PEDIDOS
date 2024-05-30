@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 
 <head>
     <meta charset="utf-8" />
@@ -11,6 +11,9 @@
     <meta name="description" content="Marketplace for Bootstrap Admin Dashboards" />
     <meta name="author" content="Bootstrap Gallery" />
     <link rel="shortcut icon" href="{{ asset('img/logo.png') }}" />
+
+    {{-- JQUERY --}}
+    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
 
     <!-- ************************* Common Css Files *************************
     <link rel="stylesheet" href="{{ asset('assets/fonts/bootstrap/bootstrap-icons.css') }}" />-->
@@ -40,8 +43,6 @@
    ************ Vendor Css Files *************
   ************ -->
 
-    {{-- JQUERY --}}
-    <script src="{{ asset('assets/js/jquery.min.js') }}"></script>
     <!-- Scrollbar CSS
     <link rel="stylesheet" href="{{ asset('assets/vendor/overlay-scroll/OverlayScrollbars.min.css') }}" />-->
     <!-- ESTILOS LIVEWIRE -->
