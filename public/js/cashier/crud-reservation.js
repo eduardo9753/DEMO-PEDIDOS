@@ -37,26 +37,24 @@ window.addEventListener('DOMContentLoaded', () => {
                     });
                     console.log(response);
                 }
-
             },
 
             error: function (xhr, status, error) {
+                console.error(xhr.responseText); // Mostrar el error detallado en la consola
                 Swal.fire({
                     position: 'top-end',
                     icon: 'error',
-                    title: error,
+                    title: 'Error: ' + xhr.responseText,
                     showConfirmButton: false,
                     timer: 2500
                 }).then(function () {
                     location.reload();
                 });
-                console.error(error);
             }
         });
     });
 
-
-    //FORMULARIO PARA PODER ACTUALIZAR LA RESERVACION
+    // FORMULARIO PARA PODER ACTUALIZAR LA RESERVACION
     $('#reservation-update-Form').on('submit', function (event) {
         event.preventDefault();  // Prevenir la autorecarga de la página
 
@@ -66,7 +64,6 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // Variable de los inputs del formulario
         let datos = form.serialize();
-
 
         // VIA AJAX
         $.ajax({
@@ -98,23 +95,21 @@ window.addEventListener('DOMContentLoaded', () => {
             },
 
             error: function (xhr, status, error) {
-                console.error(error);
+                console.error(xhr.responseText); // Mostrar el error detallado en la consola
                 Swal.fire({
                     position: 'top-end',
                     icon: 'error',
-                    title: error,
+                    title: 'Error: ' + xhr.responseText,
                     showConfirmButton: false,
                     timer: 2500
                 }).then(function () {
                     location.reload();
                 });
-
             }
         });
     });
 
-
-    //ELIMINAR LA RESERVACION
+    // ELIMINAR LA RESERVACION
     $('#reservation-delete-Form').on('submit', function (event) {
         event.preventDefault();  // Prevenir la autorecarga de la página
 
@@ -153,11 +148,11 @@ window.addEventListener('DOMContentLoaded', () => {
                         });
                     },
                     error: function (xhr, status, error) {
-                        console.error(error);
+                        console.error(xhr.responseText); // Mostrar el error detallado en la consola
                         Swal.fire({
                             position: 'top-end',
                             icon: 'error',
-                            title: error,
+                            title: 'Error: ' + xhr.responseText,
                             showConfirmButton: false,
                             timer: 2500
                         }).then(function () {
