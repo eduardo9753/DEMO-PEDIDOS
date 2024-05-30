@@ -4,6 +4,7 @@ use App\Http\Controllers\cashier\order\OrderController;
 use App\Http\Controllers\cashier\table\TableController;
 use App\Http\Controllers\cashier\transaction\TransactionController;
 use App\Http\Controllers\delivery\DeliberyController;
+use App\Http\Controllers\reservation\ReservationController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -34,3 +35,11 @@ Route::get('/cajera/delivery', [DeliberyController::class ,'deliberyCashier'])->
 Route::get('/cajera/orders/delivery', [DeliberyController::class, 'orderdeliberyCashier'])->name('cashier.delibery.order');
 Route::get('/cajera/orders/delivery/fecth', [DeliberyController::class, 'fetchOrdersDelivery'])->name('cashier.order.delivery.fetch');
 Route::delete('/cajera/order/delete/{order}', [DeliberyController::class , 'delete'])->name('cashier.order.delete');
+
+
+//reservaciones
+Route::get('/cajera/reservation/calendar', [ReservationController::class , 'index'])->name('cashier.reservation.index');
+Route::post('/cajera/reservation/create', [ReservationController::class , 'create'])->name('cashier.reservation.create');
+Route::get('/cajera/reservation/list-calendar', [ReservationController::class , 'list'])->name('cashier.reservation.list');
+Route::put('/cajera/reservation/update', [ReservationController::class , 'update'])->name('cashier.reservation.update');
+Route::delete('/cajera/reservation/delete', [ReservationController::class , 'delete'])->name('cashier.reservation.delete');

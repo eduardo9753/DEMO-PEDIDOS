@@ -83,6 +83,8 @@
 <!--JS SWEEALERT2-->
 <script src="{{ asset('lib/sweetalert2/sweetalert2.min.js') }}"></script>
 
+<!--JS FULL CALENDAR-->
+<script src="{{ asset('lib/fullcalendar/dist/index.global.js') }}"></script>
 
 <!-- Custom JS files -->
 <script src="{{ asset('assets/js/custom.js') }}"></script>
