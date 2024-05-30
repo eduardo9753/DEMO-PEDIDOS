@@ -65,7 +65,7 @@
                     <!-- Container ends -->
 
                     <script src="{{ asset('js/cashier/reservation.js') }}"></script>
-                    {{--<script src="{{ asset('js/cashier/crud-reservation.js') }}"></script>--}}
+                    <script src="{{ asset('js/cashier/crud-reservation.js') }}"></script>
                 </div>
                 <!-- App body ends -->
 

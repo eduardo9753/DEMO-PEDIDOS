@@ -82,29 +82,39 @@ window.addEventListener('DOMContentLoaded', () => {
                     $.each(data.error, function (prefix, val) {
                         $(form).find('span.' + prefix + '_error').text(val[0]);
                     });
+                } else if (data.code == 1) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 2500
+                    }).then(function () {
+                        location.reload();
+                    });
                 } else {
-                    if (data.code == 1) {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: data.msg,
-                            showConfirmButton: false,
-                            timer: 2500
-                        }).then(function () {
-                            location.reload();
-                        });
-                    } else {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'error',
-                            title: data.msg,
-                            showConfirmButton: false,
-                            timer: 2500
-                        }).then(function () {
-                            location.reload();
-                        });
-                    }
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 2500
+                    }).then(function () {
+                        location.reload();
+                    });
                 }
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Error: ' + xhr.responseText,
+                    showConfirmButton: false,
+                    timer: 2500
+                }).then(function () {
+                    location.reload();
+                });
             }
         });
     });

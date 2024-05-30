@@ -59,7 +59,7 @@ class ReservationController extends Controller
                 'end' => $request->end,
                 'allDay' => $allDay,
                 'state' => 'ACTIVO',
-                'table_id' => 1,
+                'table_id' => 3,
                 'user_id' => auth()->user()->id,
             ]);
 
@@ -141,7 +141,7 @@ class ReservationController extends Controller
                 'end' => $request->end_up,
                 'allDay' => $allDay,
                 'state' => 'ACTIVO',
-                'table_id' => 1,
+                'table_id' => 3,
                 'user_id' => auth()->user()->id,
             ]);
 
