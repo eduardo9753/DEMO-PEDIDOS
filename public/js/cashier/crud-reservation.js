@@ -1,19 +1,17 @@
 window.addEventListener('DOMContentLoaded', () => {
     // GUARDAR DATOS DEL EVENTO VIA AJAX "MODAL RESERVATION" BUCLE
     $('#reservationForm').on('submit', function (e) {
-        e.preventDefault(); //PARA RETENER EL RECARGE DE LA PAGINA
+        e.preventDefault(); // Prevenir la recarga de la página
 
-        //variable del formulario
         var form = this;
 
-        //metodo ajaz
         $.ajax({
-            url: $(form).attr('action'), //lee la ruta del formulario
-            method: $(form).attr('method'), //atributo del metodo "POST| GET ..."
-            data: new FormData(form), //enviando los datos del fornulario
+            url: $(form).attr('action'), // Leer la ruta del formulario
+            method: $(form).attr('method'), // Atributo del método "POST"
+            data: new FormData(form), // Enviar los datos del formulario
             processData: false,
             contentType: false,
-            dataType: 'json', //tipo de dato como objeto "json"
+            dataType: 'json', // Tipo de dato como objeto "json"
 
             beforeSend: function () {
                 $(form).find('span.error-text').text('');
@@ -24,29 +22,39 @@ window.addEventListener('DOMContentLoaded', () => {
                     $.each(data.error, function (prefix, val) {
                         $(form).find('span.' + prefix + '_error').text(val[0]);
                     });
+                } else if (data.code == 1) {
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 2500
+                    }).then(function () {
+                        location.reload();
+                    });
                 } else {
-                    if (data.code == 1) {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: data.msg,
-                            showConfirmButton: false,
-                            timer: 2500
-                        }).then(function () {
-                            location.reload();
-                        });
-                    } else {
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'error',
-                            title: data.msg,
-                            showConfirmButton: false,
-                            timer: 2500
-                        }).then(function () {
-                            location.reload();
-                        });
-                    }
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: data.msg,
+                        showConfirmButton: false,
+                        timer: 2500
+                    }).then(function () {
+                        location.reload();
+                    });
                 }
+            },
+            error: function (xhr, status, error) {
+                console.error(xhr.responseText);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Error: ' + xhr.responseText,
+                    showConfirmButton: false,
+                    timer: 2500
+                }).then(function () {
+                    location.reload();
+                });
             }
         });
     });

@@ -13,12 +13,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="{{ route('cashier.reservation.update') }}" id="reservation-update-Form" method="POST">
+                <form action="{{ route('cashier.reservation.update') }}" id="reservation-update-Form" method="POST"
+                    enctype="application/x-www-form-urlencoded">
+
+                    @csrf
+
                     {{-- METODO ACTUALIZAR --}}
                     @method('PUT')
 
-                    {{-- TOKEN DE SEGURIDAD --}}
-                    @csrf
                     <div class="row">
                         <div class="form-group">
                             <input type="text" id="id_reservation" name="id_reservation" hidden>
