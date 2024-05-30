@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // Mostrar el modal
             $('#reservation-update-Modal').modal('show');
 
-            alert("Fecha inicio: " + start + ", Fecha fin: " + end);
+           //alert("Fecha inicio: " + start + ", Fecha fin: " + end);
         },
 
         /*events: [
