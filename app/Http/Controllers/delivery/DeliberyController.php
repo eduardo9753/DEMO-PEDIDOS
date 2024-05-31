@@ -29,7 +29,7 @@ class DeliberyController extends Controller
     //metodo fectch de las ordenes con deliverys 
     public function fetchOrdersDelivery()
     {
-        $orders = Order::with(['orderDishes'])->where('state', 'PEDIDO')->where('type', 'DELIBERY')->latest()->get();
+        $orders = Order::with(['orderDishes'])->where('state', 'PEDIDO')->where('type', 'DELIVERY')->latest()->get();
 
         $data = view('cashier.delivery.all-orders', [
             'orders' => $orders

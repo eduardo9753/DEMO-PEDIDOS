@@ -37,7 +37,7 @@
                         </li>
                         <li>
                             <a class="dropdown-item" href="{{ route('cashier.delibery.order') }}">
-                                <span>COBROS</span>
+                                <span>COBROS DELIVERYS</span>
                             </a>
                         </li>
                     </ul>

@@ -29,7 +29,7 @@ class OrderController extends Controller
     //traendo los pedidos con AJAX para poder cobrarlos
     public function fetchOrders()
     {
-        $orders = Order::with(['orderDishes'])->where('state', 'PEDIDO')->latest()->get();
+        $orders = Order::with(['orderDishes'])->where('state', 'PEDIDO')->where('type', 'INTERNO')->latest()->get();
 
         $data = view('cashier.order.all-orders', [
             'orders' => $orders
