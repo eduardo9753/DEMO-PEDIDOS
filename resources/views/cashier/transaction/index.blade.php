@@ -46,7 +46,7 @@
                         <!-- Row start -->
                         <div class="row">
                             <div class="col-md-3">
-                                <a class="boton-redondo mb-3" href="">ACTUALIZAR</a>
+                                <a class="boton-redondo mb-3" href=""><i class='bx bx-refresh bx-spin'></i></a>
                             </div>
                             <div class="col-xl-12">
                                 @if (session()->has('message'))
