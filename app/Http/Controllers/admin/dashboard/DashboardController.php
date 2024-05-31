@@ -25,9 +25,15 @@ class DashboardController extends Controller
         $users = User::all();
         $tables = Table::all();
 
-        $ordersCount = DB::table('orders')
+        $ordersCountInterno = DB::table('orders')
             ->whereIn('state', ['COBRADO', 'OCULTO'])
             ->where('type', 'INTERNO')
+            ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
+            ->count();
+
+        $ordersCountDelivery = DB::table('orders')
+            ->whereIn('state', ['COBRADO', 'OCULTO'])
+            ->where('type', 'DELIVERY')
             ->whereBetween('created_at', [Carbon::today()->startOfDay(), Carbon::today()->endOfDay()])
             ->count();
 
@@ -42,7 +48,8 @@ class DashboardController extends Controller
         return view('admin.dashboard.index', [
             'users' => $users,
             'tables' => $tables,
-            'ordersCount' => $ordersCount,
+            'ordersCountInterno' => $ordersCountInterno,
+            'ordersCountDelivery' => $ordersCountDelivery,
             'transactiopnCount' => $transactiopnCount,
             'transactionsAmount' => $transactionsAmount
         ]);

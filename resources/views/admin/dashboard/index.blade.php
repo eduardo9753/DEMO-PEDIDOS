@@ -48,6 +48,7 @@
                             <div class="col-xl-6 col-12">
                                 <!-- Row start -->
                                 <div class="row gx-2">
+                                    {{-- ORDENES Y TRANSACCIONES DE ESTADO INTERNO --}}
                                     <div class="col-sm-6 col-12">
                                         <div class="card mb-2">
                                             <div class="card-header">
@@ -56,7 +57,7 @@
                                             <div class="card-body">
                                                 <div class="d-flex justify-content-between mb-2">
                                                     <span>cantidad</span>
-                                                    <span class="fw-bold">{{ $ordersCount }}</span>
+                                                    <span class="fw-bold">{{ $ordersCountInterno }}</span>
                                                 </div>
                                                 <div class="progress small">
                                                     <div class="progress-bar bg-success" role="progressbar"
@@ -66,7 +67,28 @@
                                             </div>
                                         </div>
                                     </div>
+
                                     <div class="col-sm-6 col-12">
+                                        <div class="card mb-2">
+                                            <div class="card-header">
+                                                <h5 class="card-title">ordenes cobradas delivery hoy</h5>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="d-flex justify-content-between mb-2">
+                                                    <span>cantidad</span>
+                                                    <span class="fw-bold">{{ $ordersCountDelivery }}</span>
+                                                </div>
+                                                <div class="progress small">
+                                                    <div class="progress-bar bg-success" role="progressbar"
+                                                        style="width: 100%" aria-valuenow="100" aria-valuemin="0"
+                                                        aria-valuemax="100"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {{--  TRANSACCIONES --}}
+                                    <div class="col-sm-12 col-12">
                                         <div class="card mb-2">
                                             <div class="card-header">
                                                 <h5 class="card-title">transacciones realizadas hoy</h5>
