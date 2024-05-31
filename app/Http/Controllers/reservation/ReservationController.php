@@ -13,6 +13,7 @@ class ReservationController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('can:Gestión reservaciones caja');
     }
 
 

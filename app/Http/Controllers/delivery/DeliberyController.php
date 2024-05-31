@@ -12,6 +12,7 @@ class DeliberyController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('can:Gestión delivery caja');
     }
 
     //plantilla livewire para los deliberys que se puede integrar tanto en  caja como en mesera

@@ -17,6 +17,7 @@ class OrderController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('can:Gestión orden caja');
     }
 
     //lista de las ordenes en estado 'PEDIDO'
