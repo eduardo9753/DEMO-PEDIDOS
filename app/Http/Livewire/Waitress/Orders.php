@@ -244,7 +244,7 @@ class Orders extends Component
                 ]
             ]);*/
 
-            $response = Http::post('http://192.168.1.2:4000/print', [
+            $response = Http::post('http://localhost:4000/print', [
                 'order' => $order
             ]);
 
