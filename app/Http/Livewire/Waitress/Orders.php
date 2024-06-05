@@ -10,6 +10,7 @@ use App\Models\Table;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Livewire\Component;
 
 class Orders extends Component
@@ -237,10 +238,14 @@ class Orders extends Component
 
         try {
             $ip_server_pd = 'localhost';
-            $response = $cliente->post('http://' . $ip_server_pd . ':4000/print', [
+            /*$response = $cliente->post('http://' . $ip_server_pd . ':4000/print', [
                 'json' => [
                     'order' => $order
                 ]
+            ]);*/
+
+            $response = Http::post('http://192.168.1.2:4000/print', [
+                'order' => $order
             ]);
 
             if ($response->getStatusCode() == 200) {
