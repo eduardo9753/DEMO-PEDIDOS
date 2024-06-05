@@ -8,6 +8,7 @@ use App\Models\Order;
 use App\Models\OrderDish;
 use App\Models\Table;
 use Carbon\Carbon;
+use GuzzleHttp\Client;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -216,6 +217,9 @@ class Orders extends Component
         if ($update) {
             $tables = Table::find($this->table_id);
             $tables->update(['state' => 'INACTIVO']);
+
+            //enviar la orden al servidor de impresión
+            $this->sendOrdenToPrintServer($order->id);
         } else {
             session()->flash('message', 'Error del pedido.');
         }
@@ -223,6 +227,32 @@ class Orders extends Component
         $this->reload();
         return redirect()->route('waitress.table.index');
     }
+
+    // Método del envío de impresión a NODE JS
+    public function sendOrdenToPrintServer($orderId)
+    {
+        $cliente = new Client();
+        //engrana datos orderDishes como dish que esta dentro de orderDishes
+        $order = Order::with('orderDishes.dish')->find($orderId); 
+
+        try {
+            $ip_server_pd = '192.168.1.2';
+            $response = $cliente->post('http://' . $ip_server_pd . ':4000/print', [
+                'json' => [
+                    'order' => $order
+                ]
+            ]);
+
+            if ($response->getStatusCode() == 200) {
+                session()->flash('message', 'Orden enviada a imprimir');
+            } else {
+                session()->flash('message', 'Error de impresion, alertar a sistemas');
+            }
+        } catch (\Exception $e) {
+            session()->flash('message', 'Error Order Livewire: ' . $e->getMessage());
+        }
+    }
+
 
     public function filterProductsByCategory()
     {
