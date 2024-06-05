@@ -236,7 +236,7 @@ class Orders extends Component
         $order = Order::with('orderDishes.dish')->find($orderId); 
 
         try {
-            $ip_server_pd = '192.168.1.2';
+            $ip_server_pd = 'localhost';
             $response = $cliente->post('http://' . $ip_server_pd . ':4000/print', [
                 'json' => [
                     'order' => $order
