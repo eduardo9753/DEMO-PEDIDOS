@@ -220,7 +220,7 @@ class Orders extends Component
             $tables->update(['state' => 'INACTIVO']);
 
             //enviar la orden al servidor de impresión
-            $this->sendOrdenToPrintServer($order->id);
+            //$this->sendOrdenToPrintServer($order->id);
         } else {
             session()->flash('message', 'Error del pedido.');
         }
@@ -229,23 +229,19 @@ class Orders extends Component
         return redirect()->route('waitress.table.index');
     }
 
-    // Método del envío de impresión a NODE JS
+    // Método del envío de impresión a NODE JS pero solo funciona de manera local
     public function sendOrdenToPrintServer($orderId)
     {
         $cliente = new Client();
         //engrana datos orderDishes como dish que esta dentro de orderDishes
-        $order = Order::with('orderDishes.dish')->find($orderId); 
+        $order = Order::with('orderDishes.dish')->find($orderId);
 
         try {
-            $ip_server_pd = 'localhost';
-            /*$response = $cliente->post('http://' . $ip_server_pd . ':4000/print', [
+            $ip_server_pd = '192.168.1.2';
+            $response = $cliente->post('http://' . $ip_server_pd . ':4000/print', [
                 'json' => [
                     'order' => $order
                 ]
-            ]);*/
-
-            $response = Http::post('http://localhost:4000/print', [
-                'order' => $order
             ]);
 
             if ($response->getStatusCode() == 200) {
