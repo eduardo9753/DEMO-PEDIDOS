@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\admin\account\AccountController;
 use App\Http\Controllers\admin\category\CategoryController;
+use App\Http\Controllers\admin\company\CompanyController;
 use App\Http\Controllers\admin\dashboard\DashboardController;
 use App\Http\Controllers\admin\dish\DishController;
 use App\Http\Controllers\admin\role\RoleController;
@@ -17,6 +19,9 @@ Route::get('/admin/categiry/create', [CategoryController::class, 'index'])->name
 
 Route::get('/admin/table/create', [TableController::class, 'index'])->name('admin.table.index');
 
+Route::get('/admin/company/create', [CompanyController::class , 'index'])->name('admin.company.index');
+
+Route::get('/admin/account/create', [AccountController::class , 'index'])->name('admin.account.index');
 
 
 /**RUTA PARA LOS ROLES Y PERMISOS */
