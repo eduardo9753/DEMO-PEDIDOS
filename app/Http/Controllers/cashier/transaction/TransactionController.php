@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\cashier\transaction;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\Order;
 use App\Models\Table;
 use App\Models\Transaction;
@@ -71,9 +72,12 @@ class TransactionController extends Controller
         $totalAmount = $pay->order->orderDishes->sum(function ($detail) {
             return $detail->quantity * $detail->dish->price;
         });
+        $company = Company::first();
+
         $pdf = PDF::loadView('cashier.pdf.factura', [
             'pay' => $pay,
-            'totalAmount' => $totalAmount
+            'totalAmount' => $totalAmount,
+            'company' => $company
         ]);
         $pdfContent = $pdf->output();
 
@@ -97,9 +101,12 @@ class TransactionController extends Controller
         $totalAmount = $pay->order->orderDishes->sum(function ($detail) {
             return $detail->quantity * $detail->dish->price;
         });
+        $company = Company::first();
+
         $pdf = PDF::loadView('cashier.pdf.boleta', [
             'pay' => $pay,
-            'totalAmount' => $totalAmount
+            'totalAmount' => $totalAmount,
+            'company' => $company
         ]);
         $pdfContent = $pdf->output();
 

@@ -101,9 +101,9 @@
             <h1>Factura de Venta</h1>
         </div>
         <div class="address">
-            <p><strong>Razon Social:</strong> Agape Chicken & Grill</p>
-            <p><strong>Direccion: </strong> parque sinchi roc, Av. Universitaria 9311, Comas 15316</p>
-            <p><strong>RUC: </strong> 20523287568 </p>
+            <p><strong>Razon Social:</strong> {{ $company->razon_social_empresa }}</p>
+            <p><strong>Dirección: </strong> {{ $company->direccion_empresa }}</p>
+            <p><strong>RUC: </strong> {{ $company->numero_ruc_empresa }} </p>
         </div>
         <div class="info">
             <p><strong>Cliente:</strong> {{ $pay->order->customer->name }}</p>

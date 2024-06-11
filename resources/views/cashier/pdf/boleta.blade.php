@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Boleta de Venta</title>
+    <title>Factura de Venta</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -101,9 +101,9 @@
             <h1></h1>
         </div>
         <div class="address">
-            <p><strong>Razon Social:</strong> Agape Chicken & Grill</p>
-            <p><strong>Dirección: </strong> parque sinchi roc, Av. Universitaria 9311, Comas 15316</p>
-            <p><strong>RUC: </strong> 20523287568 </p>
+            <p><strong>Razon Social:</strong> {{ $company->razon_social_empresa }}</p>
+            <p><strong>Dirección: </strong> {{ $company->direccion_empresa }}</p>
+            <p><strong>RUC: </strong> {{ $company->numero_ruc_empresa }} </p>
         </div>
         <div class="info">
             <p><strong>Mesa:</strong> {{ $pay->order->table->name }}</p>
